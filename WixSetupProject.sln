@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "WixSetupProject", "WixSetupProject\WixSetupProject.wixproj", "{D51A1D1F-0C95-4BFA-88DE-EE68B983CED5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildIndexAction", "BuildIndexAction\BuildIndexAction.csproj", "{7202B30A-087A-4230-80BE-E5A88DC79E31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -15,6 +17,10 @@ Global
 		{D51A1D1F-0C95-4BFA-88DE-EE68B983CED5}.Debug|x86.Build.0 = Debug|x86
 		{D51A1D1F-0C95-4BFA-88DE-EE68B983CED5}.Release|x86.ActiveCfg = Release|x86
 		{D51A1D1F-0C95-4BFA-88DE-EE68B983CED5}.Release|x86.Build.0 = Release|x86
+		{7202B30A-087A-4230-80BE-E5A88DC79E31}.Debug|x86.ActiveCfg = Debug|x86
+		{7202B30A-087A-4230-80BE-E5A88DC79E31}.Debug|x86.Build.0 = Debug|x86
+		{7202B30A-087A-4230-80BE-E5A88DC79E31}.Release|x86.ActiveCfg = Release|x86
+		{7202B30A-087A-4230-80BE-E5A88DC79E31}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

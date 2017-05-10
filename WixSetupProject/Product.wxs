@@ -9,6 +9,27 @@
     <Feature Id="ProductFeature" Title="WixSetupProject" Level="1">
       <ComponentGroupRef Id="ProductComponents" />
     </Feature>
+
+    <InstallExecuteSequence>
+      <Custom Action="BuildIndexActionData" After="InstallFiles"/>
+      <Custom Action="BuildIndexAction" After="BuildIndexActionData"/>
+    </InstallExecuteSequence>
+
+    <SetProperty After="FindRelatedProducts" Id="FirstInstall" Value="true">
+      NOT Installed AND NOT WIX_UPGRADE_DETECTED AND NOT WIX_DOWNGRADE_DETECTED
+    </SetProperty>
+    <SetProperty After="SetFirstInstall" Id="Upgrading" Value="true">
+      WIX_UPGRADE_DETECTED AND NOT (REMOVE="ALL")
+    </SetProperty>
+    <SetProperty After="RemoveExistingProducts" Id="RemovingForUpgrade" Sequence="execute" Value="true">
+      (REMOVE="ALL") AND UPGRADINGPRODUCTCODE
+    </SetProperty>
+    <SetProperty After="SetUpgrading" Id="Uninstalling" Value="true">
+      Installed AND (REMOVE="ALL") AND NOT (WIX_UPGRADE_DETECTED OR UPGRADINGPRODUCTCODE)
+    </SetProperty>
+    <SetProperty After="SetUninstalling" Id="Maintenance" Value="true">
+      Installed AND NOT Upgrading AND NOT Uninstalling AND NOT UPGRADINGPRODUCTCODE
+    </SetProperty>
   </Product>
 
   <Fragment>
@@ -49,5 +70,14 @@
       <ComponentRef Id="FileCmp3" />
       <ComponentRef Id="FileCmp4" />
     </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <CustomAction Id="BuildIndexAction" BinaryKey="BuildIndexBinary" DllEntry="BuildIndex" Execute="deferred" Return="check" HideTarget="no" Impersonate="no" />
+    <CustomAction Id="BuildIndexActionData" Property="BuildIndexAction"
+                  Value="INSTALLLOCATION=[INSTALLFOLDER];FirstInstall=[FirstInstall];Upgrading=[Upgrading];RemovingForUpgrade=[RemovingForUpgrade];Uninstalling=[Uninstalling];Maintenance=[Maintenance]"
+                  Execute="immediate" Return="check" />
+
+    <Binary Id="BuildIndexBinary" SourceFile="$(var.BuildIndexAction.TargetDir)BuildIndexAction.CA.dll"/>
   </Fragment>
 </Wix>
