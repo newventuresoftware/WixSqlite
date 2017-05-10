@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="WixSetupProject" Language="1033" Version="1.0.0.0" Manufacturer="New Venture Software" UpgradeCode="c269088f-051d-49c8-ba62-824447fb5805">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
+
+    <Feature Id="ProductFeature" Title="WixSetupProject" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="WixSetupProject" />
+      </Directory>
+    </Directory>
+  </Fragment>
+
+  <Fragment>
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Directory Id="Dir1" Name ="Folder A">
+        <Component Id="FileCmp1" Guid="FFA3D376-CE04-49ED-9410-02FD0391076E">
+          <File Id="File1" Name="File1.txt" Source=".\File.txt" />
+          <File Id="File2" Name="File2.txt" Source=".\File.txt" />
+        </Component>
+      </Directory>
+      <Directory Id="Dir2" Name ="Folder B">
+        <Directory Id="Dir3" Name ="Folder C">
+          <Component Id="FileCmp2" Guid="AE1922E9-E337-4CD4-8734-A9D4166F8AB1">
+            <File Id="File3" Name="File3.txt" Source=".\File.txt" />
+          </Component>
+        </Directory>
+        <Component Id="FileCmp3" Guid="745919E9-FB48-4286-833D-013C05EC2E02">
+          <File Id="File4" Name="File4.txt" Source=".\File.txt" />
+          <File Id="File5" Name="File5.txt" Source=".\File.txt" />
+        </Component>
+      </Directory>
+      <Component Id="FileCmp4" Guid="44C8A9DF-9B81-4917-A163-FC53BFA73D70">
+        <File Id="File6" Name="File6.txt" Source=".\File.txt" />
+      </Component>
+    </DirectoryRef>
+
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <ComponentRef Id="FileCmp1" />
+      <ComponentRef Id="FileCmp2" />
+      <ComponentRef Id="FileCmp3" />
+      <ComponentRef Id="FileCmp4" />
+    </ComponentGroup>
+  </Fragment>
+</Wix>
